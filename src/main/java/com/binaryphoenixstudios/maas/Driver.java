@@ -19,7 +19,7 @@ public class Driver
 	protected static final int NUMBER_OF_PREVIOUS_TOKENS = 3;
 	public SecureRandom random = new SecureRandom();
 
-	public static void main(String[] args) throws Exception
+	/*public static void main(String[] args) throws Exception
 	{
 		Driver driver = new Driver();
 		List<Token> tokens = driver.getTokensFromFile("C:\\Users\\Scott\\Desktop\\jstest\\lazy_dog.html");
@@ -149,6 +149,6 @@ public class Driver
 		}
 		output.append(")");
 		System.out.println(output.toString());
-	}
+	}*/
 
 }
