@@ -5,11 +5,13 @@ import com.binaryphoenixstudios.maas.enumeration.TokenSource;
 import com.binaryphoenixstudios.maas.handler.TokenSourceHandler;
 import com.binaryphoenixstudios.maas.handler.WikipediaTokenSourceHandler;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class DefaultTokenManager implements TokenManager
 {
 	protected static final SecureRandom random = new SecureRandom();
