@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.stanford.nlp.simple.Document;
 import edu.stanford.nlp.simple.Sentence;
 import org.jsoup.Jsoup;
+import org.jsoup.nodes.Element;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public class WikipediaTokenSourceHandler extends AbstractTokenSourceHandler impl
 	public List<TokenDTO> getTokens(List<String> sources, int numberOfPreviousDependantTokens)
 	{
 		List<TokenDTO> tokens = new ArrayList<>();
-		for(String source : sources)
+		for (String source : sources)
 		{
 			//Get the JSON from Wikipedia's API and pull out the body HTML from the JSON.
 			String html = getHtmlFromWikipedia(source);
@@ -25,16 +26,34 @@ public class WikipediaTokenSourceHandler extends AbstractTokenSourceHandler impl
 			//Parse the HTML to text.
 			org.jsoup.nodes.Document document = Jsoup.parse(html);
 			//Remove the references
-			document.select("#References").remove();
-			document.select("#References").remove();
-			document.select(".reference").remove();
-			document.select(".references-column-width").remove();
-			document.select(".navbox").remove();
-			String text = document.text();
+			document.select(".reference *").remove();
+			List<Element> elements = document.getElementsByTag("p");
 			
-			//Tokenize the text.
-			List<Sentence> sentences = new Document(text).sentences();
-			sentences.stream().forEach(System.out::println);
+			List<Sentence> sentences = new ArrayList<>();
+			
+			for (Element element : elements)
+			{
+				sentences.addAll(new Document(element.text()).sentences());
+			}
+			
+			for(Sentence sentence : sentences)
+			{
+				List<String> previousTokens = new ArrayList<>();
+				
+				for(String word : sentence.words())
+				{
+					TokenDTO token = new TokenDTO();
+					token.setTokenValue(word);
+					token.setPreviousTokens(new ArrayList<>(previousTokens));
+					tokens.add(token);
+					
+					previousTokens.add(word);
+					if(previousTokens.size() == numberOfPreviousDependantTokens + 1)
+					{
+						previousTokens.remove(0);
+					}
+				}
+			}
 			//Convert it into our tokens.
 		}
 		return tokens;
@@ -45,7 +64,7 @@ public class WikipediaTokenSourceHandler extends AbstractTokenSourceHandler impl
 		String html = null;
 		try
 		{
-			URL url = new URL("https://en.wikipedia.org/w/api.php?action=parse&format=json&page=batman");
+			URL url = new URL(source);
 			Map<String, Object> rawData = new ObjectMapper().readValue(url, Map.class);
 			Map<String, Object> parseData = (Map) rawData.get("parse");
 			Map<String, Object> textData = (Map) parseData.get("text");
