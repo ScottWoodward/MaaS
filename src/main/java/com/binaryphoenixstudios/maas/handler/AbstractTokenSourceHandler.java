@@ -19,6 +19,7 @@ public abstract class AbstractTokenSourceHandler implements TokenSourceHandler
 			token.setTokenValue(string);
 			token.setPreviousTokens(new ArrayList<>(previousTokens));
 			
+			previousTokens.add(string);
 			if (previousTokens.size() == numberOfPreviousDependantTokens + 1)
 			{
 				previousTokens.remove(0);

@@ -22,7 +22,7 @@ public class DefaultChainManager implements ChainManager
 		{
 			String token = tokenManager.getNextToken(tokens, previousTokens);
 			previousTokens.add(token);
-			if(previousTokens.size() > 3)
+			if(previousTokens.size() > coherence)
 			{
 				previousTokens.remove(0);
 			}

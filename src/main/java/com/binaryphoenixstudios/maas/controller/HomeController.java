@@ -19,6 +19,7 @@ import java.util.Map;
 public class HomeController
 {
 	protected static final int COHERENCE = 2;
+	
 	@Autowired protected TokenManager tokenManager;
 	@Autowired protected ChainManager chainManager;
 	

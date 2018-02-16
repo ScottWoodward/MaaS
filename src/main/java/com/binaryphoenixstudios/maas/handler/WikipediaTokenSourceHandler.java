@@ -38,21 +38,8 @@ public class WikipediaTokenSourceHandler extends AbstractTokenSourceHandler impl
 			
 			for(Sentence sentence : sentences)
 			{
-				List<String> previousTokens = new ArrayList<>();
+				tokens.addAll(convertStringsToTokens(sentence.words(), numberOfPreviousDependantTokens));
 				
-				for(String word : sentence.words())
-				{
-					TokenDTO token = new TokenDTO();
-					token.setTokenValue(word);
-					token.setPreviousTokens(new ArrayList<>(previousTokens));
-					tokens.add(token);
-					
-					previousTokens.add(word);
-					if(previousTokens.size() == numberOfPreviousDependantTokens + 1)
-					{
-						previousTokens.remove(0);
-					}
-				}
 			}
 			//Convert it into our tokens.
 		}
