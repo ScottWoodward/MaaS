@@ -21,7 +21,7 @@ import java.util.Map;
 @RequestMapping("/v1/")
 public class ChainController
 {
-	protected static final int COHERENCE = 3;
+	protected static final int COHERENCE = 2;
 	
 	@Autowired protected TokenManager tokenManager;
 	@Autowired protected ChainManager chainManager;
