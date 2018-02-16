@@ -1,0 +1,25 @@
+package com.binaryphoenixstudios.maas.request.v1;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class ChainRequest
+{
+	protected List<String> sources = new ArrayList<>();
+	
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//
+	// Getters & Setters
+	//
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	public List<String> getSources()
+	{
+		return sources;
+	}
+	
+	public void setSources(List<String> sources)
+	{
+		this.sources = sources;
+	}
+}

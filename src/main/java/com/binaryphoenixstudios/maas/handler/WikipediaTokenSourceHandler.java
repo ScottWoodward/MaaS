@@ -51,7 +51,7 @@ public class WikipediaTokenSourceHandler extends AbstractTokenSourceHandler impl
 		String html = null;
 		try
 		{
-			URL url = new URL(source);
+			URL url = new URL("https://en.wikipedia.org/w/api.php?action=parse&format=json&page=" + source);
 			Map<String, Object> rawData = new ObjectMapper().readValue(url, Map.class);
 			Map<String, Object> parseData = (Map) rawData.get("parse");
 			Map<String, Object> textData = (Map) parseData.get("text");
