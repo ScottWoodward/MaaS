@@ -6,12 +6,14 @@ import edu.stanford.nlp.simple.Document;
 import edu.stanford.nlp.simple.Sentence;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
+import org.springframework.stereotype.Component;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@Component
 public class WikipediaTokenSourceHandler extends AbstractTokenSourceHandler implements TokenSourceHandler
 {
 	@Override
