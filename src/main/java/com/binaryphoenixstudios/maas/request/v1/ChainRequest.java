@@ -1,11 +1,14 @@
 package com.binaryphoenixstudios.maas.request.v1;
 
+import com.binaryphoenixstudios.maas.dto.SourceDTO;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChainRequest
+public class ChainRequest implements Serializable
 {
-	protected List<String> sources = new ArrayList<>();
+	protected List<SourceDTO> sources = new ArrayList<>();
 	
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//
@@ -13,12 +16,12 @@ public class ChainRequest
 	//
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
-	public List<String> getSources()
+	public List<SourceDTO> getSources()
 	{
 		return sources;
 	}
 	
-	public void setSources(List<String> sources)
+	public void setSources(List<SourceDTO> sources)
 	{
 		this.sources = sources;
 	}
