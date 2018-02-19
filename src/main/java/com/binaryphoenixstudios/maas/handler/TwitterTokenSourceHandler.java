@@ -6,6 +6,7 @@ import edu.stanford.nlp.simple.Document;
 import edu.stanford.nlp.simple.Sentence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import twitter4j.Paging;
 import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterFactory;
@@ -28,7 +29,7 @@ public class TwitterTokenSourceHandler extends AbstractTokenSourceHandler implem
 		Twitter twitter = getTwitter();
 		try
 		{
-			List<Status> tweets = twitter.getUserTimeline(source);
+			List<Status> tweets = twitter.getUserTimeline(source, new Paging(1, 200));
 			for (Status tweet : tweets)
 			{
 				List<Sentence> sentences = new ArrayList<>();
