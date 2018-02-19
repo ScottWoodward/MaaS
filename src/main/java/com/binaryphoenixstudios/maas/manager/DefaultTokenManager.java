@@ -3,8 +3,10 @@ package com.binaryphoenixstudios.maas.manager;
 import com.binaryphoenixstudios.maas.dto.TokenDTO;
 import com.binaryphoenixstudios.maas.enumeration.TokenSource;
 import com.binaryphoenixstudios.maas.handler.TokenSourceHandler;
+import com.binaryphoenixstudios.maas.handler.TwitterTokenSourceHandler;
 import com.binaryphoenixstudios.maas.handler.WikipediaTokenSourceHandler;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
@@ -15,6 +17,9 @@ import java.util.List;
 public class DefaultTokenManager implements TokenManager
 {
 	protected static final SecureRandom random = new SecureRandom();
+	
+	@Autowired protected WikipediaTokenSourceHandler wikipediaTokenSourceHandler;
+	@Autowired protected TwitterTokenSourceHandler twitterTokenSourceHandler;
 	
 	@Override
 	public String getNextToken(List<TokenDTO> tokens, List<String> previousTokens)
@@ -60,7 +65,10 @@ public class DefaultTokenManager implements TokenManager
 		TokenSourceHandler handler = null;
 		switch(tokenSource)
 		{
-			case WIKIPEDIA: handler = new WikipediaTokenSourceHandler();
+			case WIKIPEDIA: handler = wikipediaTokenSourceHandler;
+				break;
+			case TWITTER: handler = twitterTokenSourceHandler;
+				break;
 		}
 		
 		return handler;
