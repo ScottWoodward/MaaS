@@ -2,10 +2,15 @@ package com.binaryphoenixstudios.maas.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
+/**
+ * Configuration class that loads properties from a classpath properties file for Twitter access.
+ *
+ * @author Scott Woodward
+ * @since 1.0
+ */
 @Component
 @ConfigurationProperties
 @PropertySource("classpath:twitter.properties")

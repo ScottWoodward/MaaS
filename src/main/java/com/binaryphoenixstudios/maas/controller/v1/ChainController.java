@@ -17,6 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * REST controller for serving up a Markov Chain from the provided sources.
+ *
+ * @author Scott Woodward
+ * @since 1.0
+ */
 @RestController
 @RequestMapping("/v1/")
 public class ChainController
@@ -35,7 +41,6 @@ public class ChainController
 			TokenSourceHandler handler = tokenManager.getTokenSourceHandlerForTokenSource(source.getTokenSource());
 			tokens.addAll(handler.getTokens(source.getSourceValue(), COHERENCE));
 		}
-		
 		
 		return new ResponseEntity<>(chainManager.generateChain(tokens, COHERENCE), HttpStatus.OK);
 	}
