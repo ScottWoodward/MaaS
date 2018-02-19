@@ -32,14 +32,17 @@ public class TwitterTokenSourceHandler extends AbstractTokenSourceHandler implem
 			List<Status> tweets = twitter.getUserTimeline(source, new Paging(1, 200));
 			for (Status tweet : tweets)
 			{
-				List<Sentence> sentences = new ArrayList<>();
-				
-				sentences.addAll(new Document(tweet.getText()).sentences());
-				
-				for (Sentence sentence : sentences)
+				if(!tweet.isRetweet() && !tweet.isTruncated())
 				{
-					tokens.addAll(convertStringsToTokens(sentence.words(), numberOfPreviousDependantTokens));
+					List<Sentence> sentences = new ArrayList<>();
 					
+					sentences.addAll(new Document(tweet.getText()).sentences());
+					
+					for (Sentence sentence : sentences)
+					{
+						tokens.addAll(convertStringsToTokens(sentence.words(), numberOfPreviousDependantTokens));
+						
+					}
 				}
 			}
 		}
