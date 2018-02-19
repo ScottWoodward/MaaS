@@ -1,6 +1,8 @@
 package com.binaryphoenixstudios.maas.enumeration;
 
-public enum TokenSource
+import java.io.Serializable;
+
+public enum TokenSource implements Serializable
 {
 	TWITTER,
 	WIKIPEDIA;
