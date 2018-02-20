@@ -36,9 +36,10 @@ public class DefaultChainManager implements ChainManager
 
 		//punctuation gets translated into tokens separately, so this should clean a bit of it up.
 		String output = builder.toString();
-		output.replace(" .", ".");
-		output.replace(" ,", ",");
-		output.replace(" '", " '");
+		output = output.trim();
+		output = output.replace(" .", ".");
+		output = output.replace(" ,", ",");
+		output = output.replace(" '", "'");
 		return output;
 	}
 }

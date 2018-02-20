@@ -29,7 +29,7 @@ public class TwitterTokenSourceHandler extends AbstractTokenSourceHandler implem
 		{
 			for (int i = 0; i < 5; i++)
 			{
-				List<Status> tweets = twitter.getUserTimeline(source, new Paging(i, 200));
+				List<Status> tweets = twitter.getUserTimeline(source, new Paging(i + 1, 200));
 				for (Status tweet : tweets)
 				{
 					if (!tweet.isRetweet() && !tweet.isTruncated())
