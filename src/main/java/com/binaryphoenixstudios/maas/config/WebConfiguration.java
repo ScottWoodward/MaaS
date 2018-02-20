@@ -15,7 +15,7 @@ public class WebConfiguration extends WebMvcConfigurerAdapter
 		registry.addRedirectViewController("/api/documentation/swagger-resources/configuration/ui", "/swagger-resources/configuration/ui");
 		registry.addRedirectViewController("/api/documentation/swagger-resources/configuration/security", "/swagger-resources/configuration/security");
 		registry.addRedirectViewController("/api/documentation/swagger-resources", "/swagger-resources");
-		registry.addRedirectViewController("/api/documentation", "/documentation/swagger-ui.html");
+		registry.addRedirectViewController("/api/documentation", "/api/documentation/swagger-ui.html");
 	}
 
 
