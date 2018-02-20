@@ -1,4 +1,4 @@
-package com.binaryphoenixstudios.maas.request.v1;
+package com.binaryphoenixstudios.maas.request;
 
 import com.binaryphoenixstudios.maas.dto.SourceDTO;
 

@@ -1,11 +1,11 @@
-package com.binaryphoenixstudios.maas.controller.v1;
+package com.binaryphoenixstudios.maas.controller;
 
 import com.binaryphoenixstudios.maas.dto.SourceDTO;
 import com.binaryphoenixstudios.maas.dto.TokenDTO;
 import com.binaryphoenixstudios.maas.handler.TokenSourceHandler;
 import com.binaryphoenixstudios.maas.manager.ChainManager;
 import com.binaryphoenixstudios.maas.manager.TokenManager;
-import com.binaryphoenixstudios.maas.request.v1.ChainRequest;
+import com.binaryphoenixstudios.maas.request.ChainRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/v1/")
+@RequestMapping("/chain")
 public class ChainController
 {
 	protected static final int COHERENCE = 2;
@@ -26,7 +26,7 @@ public class ChainController
 	@Autowired protected TokenManager tokenManager;
 	@Autowired protected ChainManager chainManager;
 	
-	@RequestMapping(value = "chain", method = RequestMethod.POST)
+	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<String> getChain(@RequestBody ChainRequest request)
 	{
 		List<TokenDTO> tokens = new ArrayList<>();
