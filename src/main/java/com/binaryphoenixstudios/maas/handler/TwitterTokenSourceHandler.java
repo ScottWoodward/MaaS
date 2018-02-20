@@ -1,9 +1,6 @@
 package com.binaryphoenixstudios.maas.handler;
 
 import com.binaryphoenixstudios.maas.config.TwitterConfiguration;
-import com.binaryphoenixstudios.maas.dto.TokenDTO;
-import edu.stanford.nlp.simple.Document;
-import edu.stanford.nlp.simple.Sentence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import twitter4j.Paging;
@@ -18,42 +15,37 @@ import java.util.List;
 @Component
 public class TwitterTokenSourceHandler extends AbstractTokenSourceHandler implements TokenSourceHandler
 {
-	@Autowired protected TwitterConfiguration twitterConfiguration;
-	
+	@Autowired
+	protected TwitterConfiguration twitterConfiguration;
+
 	@Override
-	public List<TokenDTO> getTokens(String source, int numberOfPreviousDependantTokens)
+	protected List<String> getStringsFromSource(String source)
 	{
-		List<TokenDTO> tokens = new ArrayList<>();
-		//Get the JSON from Wikipedia's API and pull out the body HTML from the JSON.
-		
+		List<String> strings = new ArrayList<>();
+
 		Twitter twitter = getTwitter();
+
 		try
 		{
-			List<Status> tweets = twitter.getUserTimeline(source, new Paging(1, 200));
-			for (Status tweet : tweets)
+			for (int i = 0; i < 5; i++)
 			{
-				if(!tweet.isRetweet() && !tweet.isTruncated())
+				List<Status> tweets = twitter.getUserTimeline(source, new Paging(i + 1, 200));
+				for (Status tweet : tweets)
 				{
-					List<Sentence> sentences = new ArrayList<>();
-					
-					sentences.addAll(new Document(tweet.getText()).sentences());
-					
-					for (Sentence sentence : sentences)
+					if (!tweet.isRetweet() && !tweet.isTruncated())
 					{
-						tokens.addAll(convertStringsToTokens(sentence.words(), numberOfPreviousDependantTokens));
-						
+						strings.add(tweet.getText());
 					}
 				}
 			}
-		}
-		catch (Exception e)
+		} catch (Exception e)
 		{
 			e.printStackTrace();
 		}
-		
-		return tokens;
+
+		return strings;
 	}
-	
+
 	protected Twitter getTwitter()
 	{
 		ConfigurationBuilder cb = new ConfigurationBuilder();

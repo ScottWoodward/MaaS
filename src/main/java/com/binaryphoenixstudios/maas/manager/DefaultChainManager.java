@@ -1,7 +1,6 @@
 package com.binaryphoenixstudios.maas.manager;
 
 import com.binaryphoenixstudios.maas.dto.TokenDTO;
-import edu.stanford.nlp.simple.Sentence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,8 +26,20 @@ public class DefaultChainManager implements ChainManager
 				previousTokens.remove(0);
 			}
 			builder.append(token).append(" ");
+
+			//If we completed a sentence, call it quits.
+			if(builder.toString().endsWith("."))
+			{
+				break;
+			}
 		}
-		
-		return builder.toString();
+
+		//punctuation gets translated into tokens separately, so this should clean a bit of it up.
+		String output = builder.toString();
+		output = output.trim();
+		output = output.replace(" .", ".");
+		output = output.replace(" ,", ",");
+		output = output.replace(" '", "'");
+		return output;
 	}
 }
