@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/chain")
+@RequestMapping("/api/chain")
 public class ChainController
 {
 	protected static final int COHERENCE = 2;
