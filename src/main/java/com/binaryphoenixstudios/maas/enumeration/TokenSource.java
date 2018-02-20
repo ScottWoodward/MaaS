@@ -5,5 +5,5 @@ import java.io.Serializable;
 public enum TokenSource implements Serializable
 {
 	TWITTER,
-	WIKIPEDIA
+	WIKIPEDIA;
 }
