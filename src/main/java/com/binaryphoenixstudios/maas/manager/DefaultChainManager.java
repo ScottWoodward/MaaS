@@ -39,6 +39,6 @@ public class DefaultChainManager implements ChainManager
 		output.replace(" .", ".");
 		output.replace(" ,", ",");
 		output.replace(" '", " '");
-		return builder.toString();
+		return output;
 	}
 }
