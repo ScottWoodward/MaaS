@@ -1,10 +1,8 @@
 package com.binaryphoenixstudios.maas.handler;
 
-import com.binaryphoenixstudios.maas.dto.TokenDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import edu.stanford.nlp.simple.Document;
-import edu.stanford.nlp.simple.Sentence;
 import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.springframework.stereotype.Component;
 
@@ -17,34 +15,23 @@ import java.util.Map;
 public class WikipediaTokenSourceHandler extends AbstractTokenSourceHandler implements TokenSourceHandler
 {
 	@Override
-	public List<TokenDTO> getTokens(String source, int numberOfPreviousDependantTokens)
+	protected List<String> getStringsFromSource(String source)
 	{
-		List<TokenDTO> tokens = new ArrayList<>();
-		//Get the JSON from Wikipedia's API and pull out the body HTML from the JSON.
+		List<String> strings = new ArrayList<>();
 		String html = getHtmlFromWikipedia(source);
-		
 		//Parse the HTML to text.
-		org.jsoup.nodes.Document document = Jsoup.parse(html);
+		Document document = Jsoup.parse(html);
 		//Remove the references
 		document.select(".reference *").remove();
 		List<Element> elements = document.getElementsByTag("p");
-		
-		List<Sentence> sentences = new ArrayList<>();
-		
+
 		for (Element element : elements)
 		{
-			sentences.addAll(new Document(element.text()).sentences());
+			strings.add(element.text());
 		}
-		
-		for (Sentence sentence : sentences)
-		{
-			tokens.addAll(convertStringsToTokens(sentence.words(), numberOfPreviousDependantTokens));
-			
-		}
-		
-		return tokens;
+		return strings;
 	}
-	
+
 	protected String getHtmlFromWikipedia(String source)
 	{
 		String html = null;
@@ -55,8 +42,7 @@ public class WikipediaTokenSourceHandler extends AbstractTokenSourceHandler impl
 			Map<String, Object> parseData = (Map) rawData.get("parse");
 			Map<String, Object> textData = (Map) parseData.get("text");
 			html = (String) textData.get("*");
-		}
-		catch (Exception e)
+		} catch (Exception e)
 		{
 			e.printStackTrace();
 		}
