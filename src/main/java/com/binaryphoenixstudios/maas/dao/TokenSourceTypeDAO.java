@@ -9,5 +9,5 @@ public interface TokenSourceTypeDAO extends CrudRepository<TokenSourceType, Long
 {
 	List<TokenSourceType> findAll();
 
-	TokenSourceType findByName();
+	TokenSourceType findByName(String name);
 }
