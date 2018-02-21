@@ -1,0 +1,37 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="createTableTokenSourceType" author="Scott Woodward">
+        <createTable tableName="TokenSourceType">
+            <column type="BIGINT" name="TokenSourceTypeID" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="PK_TokenSourceType"/>
+            </column>
+            <column type="VARCHAR(50)" name="Name">
+                <constraints nullable="false"/>
+            </column>
+            <column type="VARCHAR(50)" name="TokenSourceHandlerName">
+                <constraints nullable="false"/>
+            </column>
+            <column type="VARCHAR(100)" name="ExampleText">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="populateTokenSourceType" author="Scott Woodward">
+        <insert tableName="TokenSourceType">
+            <column name="Name">Wikipedia</column>
+            <column name="TokenSourceHandlerName">WikipediaTokenSourceHandler</column>
+            <column name="ExampleText">https://en.wikipedia.org/wiki/Example</column>
+        </insert>
+        <insert tableName="TokenSourceType">
+            <column name="Name">Twitter</column>
+            <column name="TokenSourceHandlerName">TwitterTokenSourceHandler</column>
+            <column name="ExampleText">https://twitter.com/Example</column>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

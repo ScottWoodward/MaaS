@@ -28,3 +28,4 @@ target/
 
 # Configuration
 twitter.properties
+liquibase.properties
